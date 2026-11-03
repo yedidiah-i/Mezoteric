@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
+    "start:preview": "MZ_INSECURE=1 node server/index.js",
     "dev": "npm --prefix frontend run dev",
     "dev:node": "MZ_INSECURE=1 node server/index.js",
     "dev:node:tls": "node server/index.js",
