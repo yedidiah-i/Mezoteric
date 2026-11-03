@@ -1,0 +1,11 @@
+LAN discovery listening on UDP 47820
+
+  Mezoteric school node is running
+  Local:   https://localhost:3000
+  LAN:     https://10.12.75.162:3000
+  Works with or without internet.
+
+  HTTPS is on with a local self-signed certificate (needed for
+  encryption, camera and offline install). Each device shows a
+  one-time "not private" warning: choose Advanced -> Proceed.
+  node id: wNsCskkK9yDE

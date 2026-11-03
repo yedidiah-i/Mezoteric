@@ -1,0 +1,6 @@
+{
+  "name": "mezoteric-tests",
+  "private": true,
+  "type": "module",
+  "main": "./index.js"
+}

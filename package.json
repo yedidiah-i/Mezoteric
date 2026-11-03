@@ -1,0 +1,21 @@
+{
+  "name": "mezoteric",
+  "version": "1.0.0",
+  "description": "Mezoteric - LAN-first, end-to-end encrypted school platform (chat, channels, streams, shorts, dashboards)",
+  "type": "module",
+  "bin": {
+    "mezoteric": "./server/index.js"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run export-to-server",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run export-to-server",
+    "check": "node --check server/index.js && node --check server/store.js && node --check server/mesh.js && node --check server/discovery.js"
+  },
+  "dependencies": {
+    "selfsigned": "^5.5.0",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Mezoteric School",
+  "short_name": "Mezoteric",
+  "description": "End-to-end encrypted school chat, classes, streams and shorts that work on the school LAN without internet.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070c16",
+  "theme_color": "#070c16",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
