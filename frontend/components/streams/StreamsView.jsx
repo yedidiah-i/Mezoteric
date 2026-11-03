@@ -231,7 +231,7 @@ export default function StreamsView() {
   });
 
   return (
-    <div style={{ display: 'flex', height: '100%', width: '100%', overflow: 'hidden' }}>
+    <div className="streams-view" style={{ display: 'flex', height: '100%', width: '100%', overflow: 'hidden' }}>
       {/* Streams Sidebar (300px) */}
       <aside className="sidebar" style={{ width: '300px', minWidth: '300px', flexShrink: 0, display: 'flex', flexDirection: 'column', height: '100%', borderRight: '1px solid var(--line)', background: 'var(--bg-2)' }}>
         {/* Header */}

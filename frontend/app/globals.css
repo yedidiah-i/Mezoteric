@@ -26,6 +26,8 @@
 html, body { height: 100%; width: 100%; }
 body {
   background: var(--bg);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -514,4 +516,101 @@ a { color: var(--accent); text-decoration: none; }
   .app-shell {
     flex-direction: column-reverse;
   }
+}
+
+/* Final visual pass: shared workspace rhythm and resilient responsive surfaces. */
+.page-view,
+.settings-view,
+.shorts-view,
+.admin-view,
+.school-view,
+.streams-view {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+  padding: clamp(18px, 3vw, 32px);
+}
+
+.page-view > header,
+.settings-view > header,
+.admin-view > header,
+.school-view > header,
+.streams-view > header {
+  max-width: 1180px;
+  margin: 0 auto 22px;
+}
+
+.page-view > header h1,
+.settings-view > header h1,
+.admin-view > header h1,
+.school-view > header h1,
+.streams-view > header h1 {
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+  color: var(--text);
+}
+
+.page-view > header p,
+.settings-view > header p,
+.admin-view > header p,
+.school-view > header p,
+.streams-view > header p {
+  color: var(--muted);
+  margin-top: 6px;
+  max-width: 680px;
+}
+
+.page-view > section,
+.settings-view > section,
+.admin-view > section,
+.school-view > section,
+.streams-view > section,
+.page-view > .card,
+.settings-view > .card,
+.admin-view > .card,
+.school-view > .card,
+.streams-view > .card {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.card h2,
+.card h3,
+.card h4 { color: var(--text); letter-spacing: -.02em; }
+.card p { color: var(--muted); }
+
+input:not(.chat-input), textarea, select {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 9px 11px;
+  color: var(--text);
+  outline: none;
+}
+input:not(.chat-input):focus, textarea:focus, select:focus {
+  border-color: #82cbbb;
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+label { color: var(--muted); font-size: 12px; font-weight: 700; }
+
+button:disabled { cursor: not-allowed; opacity: .55; transform: none !important; }
+.btn:focus-visible, .rail-btn:focus-visible, .rail-brand:focus-visible { outline: 3px solid #b8e1d8; outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  .page-view,
+  .settings-view,
+  .admin-view,
+  .school-view,
+  .streams-view { padding: 16px 13px 20px; }
+  .page-view > header,
+  .settings-view > header,
+  .admin-view > header,
+  .school-view > header,
+  .streams-view > header { margin-bottom: 16px; }
+  .card { padding: 15px; border-radius: 14px; }
+  .modal-box { padding: 18px; max-height: calc(100vh - 28px); }
+  .modal-backdrop { padding: 14px; }
 }

@@ -88,7 +88,7 @@ export default function ShortsView() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100%', width: '100%', overflow: 'hidden', position: 'relative' }}>
+    <div className="shorts-view" style={{ display: 'flex', height: '100%', width: '100%', overflow: 'hidden', position: 'relative' }}>
       {/* Top Floating Controls */}
       <div
         style={{
