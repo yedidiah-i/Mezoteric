@@ -9,6 +9,17 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Keep the preview safe to embed while hardening deployed responses.
+  async headers() {
+    return [{
+      source: '/(.*)',
+      headers: [
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+        { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        { key: 'Permissions-Policy', value: 'camera=(self), microphone=(self), geolocation=()' },
+      ],
+    }];
+  },
   // Support static export for zero-dependency hosting by server/index.js
   output: process.env.NEXT_EXPORT === 'true' ? 'export' : undefined,
   trailingSlash: true,
