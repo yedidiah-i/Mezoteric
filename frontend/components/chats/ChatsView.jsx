@@ -107,7 +107,7 @@ export default function ChatsView() {
   );
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', height: '100%', width: '100%' }}>
+    <div className="workspace-view" style={{ display: 'grid', gridTemplateColumns: '320px 1fr', height: '100%', width: '100%' }}>
       {/* Left Conversation List */}
       <aside className="sidebar">
         <div className="sidebar-header">

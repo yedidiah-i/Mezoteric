@@ -97,7 +97,7 @@ export default function ChannelsView() {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', height: '100%', width: '100%' }}>
+    <div className="workspace-view" style={{ display: 'grid', gridTemplateColumns: '320px 1fr', height: '100%', width: '100%' }}>
       {/* Channels Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
@@ -226,7 +226,7 @@ export default function ChannelsView() {
                   </span>
                 </div>
 
-                <div style={{ fontSize: '14px', marginTop: '4px', lineHeight: 1.5, color: '#e9f0fb' }}>
+                <div style={{ fontSize: '14px', marginTop: '4px', lineHeight: 1.5, color: 'var(--text)' }}>
                   {m.text}
                 </div>
 

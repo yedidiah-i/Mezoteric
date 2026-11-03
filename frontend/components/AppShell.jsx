@@ -58,7 +58,7 @@ export default function AppShell({ children }) {
 
       <div className="app-body">
         {/* Navigation Rail (Leftmost bar) */}
-        <nav className="rail">
+        <nav className="rail" aria-label="Main navigation">
           {/* Brand icon */}
           <div
             className="rail-brand"
@@ -78,7 +78,10 @@ export default function AppShell({ children }) {
                   key={item.key}
                   className={`rail-btn ${isActive ? 'active' : ''}`}
                   onClick={() => setActiveSection(item.key)}
+                  type="button"
                   title={item.label}
+                  aria-label={item.label}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   <Icon size={20} />
                   <span>{item.label}</span>
