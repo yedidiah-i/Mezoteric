@@ -54,7 +54,7 @@ export default function SettingsView() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto', padding: '24px 32px', maxWidth: '800px' }}>
+    <div className="settings-view" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto', padding: '24px 32px', maxWidth: '800px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
         <Settings size={28} color="var(--accent)" />
         <div>
