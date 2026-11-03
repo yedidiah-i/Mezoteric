@@ -1,138 +1,69 @@
 'use client';
 
-/**
- * AppShell Component
- * 
- * Provides the overarching navigation rail, active section switching,
- * responsive sidebars, user profile drawer, and LAN network status.
- */
-
 import React, { useState } from 'react';
 import { useMezoteric } from '../lib/context.jsx';
 import OfflineStatusBanner from './OfflineStatusBanner.jsx';
 import AuthModal from './AuthModal.jsx';
 import {
-  MessageSquare,
-  Hash,
-  Tv,
-  Film,
-  GraduationCap,
-  Shield,
-  Settings,
-  User,
-  Plus,
-  KeyRound,
+  MessageSquare, Hash, Tv, Film, GraduationCap, Shield, Settings,
+  KeyRound, Search, Bell, ChevronDown, PanelLeft, LockKeyhole,
 } from 'lucide-react';
 
+const navItems = [
+  { key: 'chats', label: 'Messages', description: 'Private conversations', icon: MessageSquare },
+  { key: 'channels', label: 'Channels', description: 'School communities', icon: Hash },
+  { key: 'streams', label: 'Live streams', description: 'Classes and events', icon: Tv, badge: 'LIVE' },
+  { key: 'shorts', label: 'Shorts', description: 'Campus highlights', icon: Film },
+  { key: 'school', label: 'School hub', description: 'Learning workspace', icon: GraduationCap },
+  { key: 'admin', label: 'Governance', description: 'Trust and approvals', icon: Shield },
+];
+
+const sectionNames = Object.fromEntries(navItems.map((item) => [item.key, item.label]));
+
 export default function AppShell({ children }) {
-  const {
-    identity,
-    role,
-    activeSection,
-    setActiveSection,
-    isUnlocked,
-    hasExistingVault,
-  } = useMezoteric();
-
+  const { identity, role, activeSection, setActiveSection, isUnlocked, hasExistingVault } = useMezoteric();
   const [showAuthModal, setShowAuthModal] = useState(!isUnlocked && !hasExistingVault);
-
-  const navItems = [
-    { key: 'chats', label: 'Chats', icon: MessageSquare, badge: null },
-    { key: 'channels', label: 'Channels', icon: Hash, badge: null },
-    { key: 'streams', label: 'Streams', icon: Tv, badge: 'LIVE' },
-    { key: 'shorts', label: 'Shorts', icon: Film, badge: null },
-    { key: 'school', label: 'School', icon: GraduationCap, badge: null },
-    { key: 'admin', label: 'Admin', icon: Shield, badge: null },
-  ];
-
-  const getRoleBadgeClass = (r) => {
-    if (r === 'admin') return 'badge-admin';
-    if (r === 'teacher') return 'badge-teacher';
-    return 'badge-student';
-  };
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="app-shell">
-      {/* Top Banner: Distinguishes between Internet WAN and Local School LAN */}
+    <div className={`app-shell ${collapsed ? 'sidebar-collapsed' : ''}`}>
       <OfflineStatusBanner />
-
       <div className="app-body">
-        {/* Navigation Rail (Leftmost bar) */}
-        <nav className="rail" aria-label="Main navigation">
-          {/* Brand icon */}
-          <div
-            className="rail-brand"
-            title="Mezoteric School Platform"
-            onClick={() => setActiveSection('chats')}
-          >
-            M
+        <aside className="app-sidebar" aria-label="Main navigation">
+          <div className="brand-lockup" onClick={() => setActiveSection('chats')} role="button" tabIndex={0}>
+            <div className="brand-mark">M</div>
+            <div className="brand-copy"><strong>mezoteric</strong><span>School network</span></div>
           </div>
 
-          {/* Core Navigation Items */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%', alignItems: 'center' }}>
+          <div className="sidebar-section-label">Workspace</div>
+          <nav className="primary-nav">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeSection === item.key;
+              const active = activeSection === item.key;
               return (
-                <button
-                  key={item.key}
-                  className={`rail-btn ${isActive ? 'active' : ''}`}
-                  onClick={() => setActiveSection(item.key)}
-                  type="button"
-                  title={item.label}
-                  aria-label={item.label}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <Icon size={20} />
-                  <span>{item.label}</span>
-                  {item.badge && <span className="rail-badge">{item.badge}</span>}
+                <button key={item.key} className={`nav-item ${active ? 'active' : ''}`} onClick={() => setActiveSection(item.key)} type="button" aria-current={active ? 'page' : undefined}>
+                  <Icon aria-hidden="true" />
+                  <span className="nav-item-copy"><strong>{item.label}</strong><small>{item.description}</small></span>
+                  {item.badge && <span className="live-pill">{item.badge}</span>}
                 </button>
               );
             })}
-          </div>
+          </nav>
 
-          <div style={{ flex: 1 }} />
+          <div className="sidebar-spacer" />
+          <div className="trust-card"><div className="trust-icon"><LockKeyhole aria-hidden="true" /></div><div><strong>Private by design</strong><span>End-to-end encryption is active</span></div></div>
+          <button className={`nav-item ${activeSection === 'settings' ? 'active' : ''}`} onClick={() => setActiveSection('settings')} type="button"><Settings aria-hidden="true" /><span className="nav-item-copy"><strong>Settings</strong><small>Keys and preferences</small></span></button>
+          <button className="profile-card" onClick={() => setShowAuthModal(true)} type="button"><span className="avatar">{identity ? identity.name.charAt(0).toUpperCase() : <KeyRound aria-hidden="true" />}</span><span className="profile-copy"><strong>{identity?.name || 'Set up profile'}</strong><small>{identity ? role : 'Secure your account'}</small></span><ChevronDown aria-hidden="true" /></button>
+        </aside>
 
-          {/* Bottom Settings & User Profile */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', width: '100%' }}>
-            <button
-              className={`rail-btn ${activeSection === 'settings' ? 'active' : ''}`}
-              onClick={() => setActiveSection('settings')}
-              title="Settings & Key Vault"
-            >
-              <Settings size={20} />
-              <span>Settings</span>
-            </button>
-
-            {/* Profile Avatar & Role Indicator */}
-            <div
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, rgba(61, 220, 151, 0.2), rgba(139, 124, 246, 0.3))',
-                border: '1px solid var(--line)',
-                display: 'grid',
-                placeItems: 'center',
-                cursor: 'pointer',
-                fontWeight: '700',
-                color: 'var(--accent)',
-              }}
-              title={identity ? `${identity.name} (${role})` : 'Set Up Profile'}
-              onClick={() => setShowAuthModal(true)}
-            >
-              {identity ? identity.name.charAt(0).toUpperCase() : <KeyRound size={18} />}
-            </div>
-          </div>
-        </nav>
-
-        {/* Dynamic Main View */}
         <main className="main-content">
-          {children}
+          <header className="topbar">
+            <div className="topbar-title"><button className="icon-button mobile-menu" onClick={() => setCollapsed((value) => !value)} type="button" aria-label="Toggle navigation"><PanelLeft aria-hidden="true" /></button><div><span className="eyebrow">{sectionNames[activeSection] || 'Workspace'}</span><h1>{activeSection === 'chats' ? `Good morning, ${identity?.name || 'there'}` : sectionNames[activeSection]}</h1></div></div>
+            <div className="topbar-actions"><label className="global-search"><Search aria-hidden="true" /><input aria-label="Search Mezoteric" placeholder="Search Mezoteric" /></label><button className="icon-button" type="button" aria-label="Notifications"><Bell aria-hidden="true" /><span className="notification-dot" /></button><button className="icon-button desktop-menu" onClick={() => setCollapsed((value) => !value)} type="button" aria-label="Collapse navigation"><PanelLeft aria-hidden="true" /></button></div>
+          </header>
+          <div className="content-canvas">{children}</div>
         </main>
       </div>
-
-      {/* Cryptographic Key Vault / Onboarding Modal */}
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </div>
   );
